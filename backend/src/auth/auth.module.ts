@@ -5,6 +5,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller.js';
 import { AuthService } from './auth.service.js';
 import { JwtAuthGuard } from './guards/jwt-auth.guard.js';
+import { RolesGuard } from './guards/roles.guard.js';
 
 @Module({
   imports: [
@@ -20,8 +21,10 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard.js';
   controllers: [AuthController],
   providers: [
     AuthService,
-    // APP_GUARD aplica o guard em todas as rotas da aplicação
+    // APP_GUARD aplica o guard em todas as rotas da aplicação.
+    // A ordem importa: primeiro descobre QUEM é (JWT), depois o que PODE fazer (papel).
     { provide: APP_GUARD, useClass: JwtAuthGuard },
+    { provide: APP_GUARD, useClass: RolesGuard },
   ],
 })
 export class AuthModule {}
