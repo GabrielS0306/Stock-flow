@@ -1,0 +1,37 @@
+# Dependências
+node_modules
+
+# Build e cache do TypeScript
+dist
+dist-ssr
+*.tsbuildinfo
+
+# Variáveis de ambiente (segredos!). Os .env.example são versionados.
+.env
+.env.*
+!.env.example
+*.local
+
+# Prisma Client gerado (recriado com "npx prisma generate")
+backend/src/generated
+
+# Skills de IDE/IA instaladas automaticamente pelo "prisma skills sync" (postinstall)
+backend/.agents
+backend/.claude
+backend/.cursor
+backend/.devin
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Testes
+coverage
+
+# Editor e sistema operacional
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
