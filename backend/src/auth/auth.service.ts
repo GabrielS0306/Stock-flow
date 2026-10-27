@@ -12,7 +12,12 @@ export class AuthService {
   ) {}
 
   async login(email: string, password: string) {
-    const user = await this.prisma.user.findUnique({ where: { email } });
+    // Único lugar que busca o hash da senha (omitido por padrão no PrismaService).
+    // Ele é usado só na comparação e nunca vai para a resposta.
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+      omit: { password: false },
+    });
 
     // Mesma mensagem para e-mail inexistente e senha errada:
     // assim a API não revela quais e-mails estão cadastrados.

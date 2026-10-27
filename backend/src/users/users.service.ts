@@ -8,9 +8,7 @@ import { Prisma } from '../generated/prisma/client.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { CreateUserDto } from './dto/create-user.dto.js';
 
-// Usado em toda consulta que devolve usuário para a API: o hash da senha nunca sai daqui.
-const WITHOUT_PASSWORD = { password: true } as const;
-
+// A senha já vem omitida de todas as consultas (configurado no PrismaService).
 @Injectable()
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
@@ -25,7 +23,6 @@ export class UsersService {
           password: await hashPassword(dto.password),
           role: dto.role,
         },
-        omit: WITHOUT_PASSWORD,
       });
     } catch (error) {
       // P2002 = violação de campo único (o email tem @unique no schema)
@@ -40,10 +37,7 @@ export class UsersService {
   }
 
   async findById(id: string) {
-    const user = await this.prisma.user.findUnique({
-      where: { id },
-      omit: WITHOUT_PASSWORD,
-    });
+    const user = await this.prisma.user.findUnique({ where: { id } });
 
     if (!user) {
       throw new NotFoundException('Usuário não encontrado');

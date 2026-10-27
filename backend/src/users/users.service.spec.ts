@@ -33,17 +33,6 @@ describe('UsersService', () => {
     );
   });
 
-  it('pede ao Prisma para omitir a senha nas respostas', async () => {
-    create.mockResolvedValue({ id: 'user-1' });
-    findUnique.mockResolvedValue({ id: 'user-1' });
-
-    await service.create(dto);
-    await service.findById('user-1');
-
-    expect(create.mock.calls[0][0].omit).toEqual({ password: true });
-    expect(findUnique.mock.calls[0][0].omit).toEqual({ password: true });
-  });
-
   it('responde 409 quando o e-mail já existe', async () => {
     create.mockRejectedValue(
       new Prisma.PrismaClientKnownRequestError('Unique constraint failed', {
