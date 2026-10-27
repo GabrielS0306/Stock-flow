@@ -2,6 +2,12 @@ import { api } from './api'
 
 export type Role = 'ADMIN' | 'OPERATOR'
 
+// Nome de cada papel para exibir na tela (o valor técnico continua vindo da API)
+export const roleLabels: Record<Role, string> = {
+  ADMIN: 'Administrador',
+  OPERATOR: 'Operador',
+}
+
 // Formato que o backend devolve (nunca inclui a senha)
 export type User = {
   id: string

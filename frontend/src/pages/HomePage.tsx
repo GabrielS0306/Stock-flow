@@ -1,8 +1,25 @@
-// Provisória: o conteúdo da página inicial entra numa próxima parte.
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { useAuth } from '@/hooks/use-auth'
+
 export function HomePage() {
+  const { user } = useAuth()
+  // Primeiro nome, para uma saudação mais natural
+  const firstName = user?.name.split(' ')[0]
+
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <h1 className="text-2xl font-bold">Stock Flow</h1>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-xl">Olá, {firstName}!</CardTitle>
+        <CardDescription>
+          Bem-vindo ao Stock Flow. Em breve, aqui você vai gerenciar produtos e
+          movimentações de estoque.
+        </CardDescription>
+      </CardHeader>
+    </Card>
   )
 }

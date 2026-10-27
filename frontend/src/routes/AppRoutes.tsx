@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router'
+import { AppLayout } from '@/components/AppLayout'
 import { HomePage } from '@/pages/HomePage'
 import { LoginPage } from '@/pages/LoginPage'
 import { PrivateRoute } from './PrivateRoute'
@@ -13,7 +14,10 @@ export function AppRoutes() {
       </Route>
 
       <Route element={<PrivateRoute />}>
-        <Route path="/" element={<HomePage />} />
+        {/* Todas as páginas logadas compartilham o cabeçalho do AppLayout */}
+        <Route element={<AppLayout />}>
+          <Route path="/" element={<HomePage />} />
+        </Route>
       </Route>
 
       {/* Qualquer URL desconhecida volta para o início (que manda para o login se preciso) */}
